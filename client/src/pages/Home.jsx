@@ -1,8 +1,6 @@
 // pages/HomePage.jsx
 import React from 'react';
 import { useEffect } from 'react';
-import Header from '../components/CustomerHeader';
-import Footer from '../components/Footer';
 
 const MaterialIcon = ({ name, size = 20 }) => (
   <span
@@ -43,8 +41,7 @@ export default function HomePage() {
       />
 
       <div className="min-h-screen bg-[#f5f3ee] text-[#0a0a0f]">
-        <Header />
-
+  
         {/* HERO */}
         <section className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-10 pt-[120px] pb-20 relative overflow-hidden text-center">
           <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(10,10,15,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(10,10,15,0.1)_1px,transparent_1px)] bg-[length:60px_60px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,black,transparent)]" />
@@ -252,8 +249,7 @@ export default function HomePage() {
           </div>
         </div>
 
-        <Footer />
-      </div>
+        </div>
 
       <style>{`
         .reveal {
