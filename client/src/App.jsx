@@ -1,21 +1,31 @@
-import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home.jsx'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import Homepage from './pages/Homepage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <Router>
+      <Toaster position="top-right" reverseOrder={false} />
 
-      {/* Owner Routes */}
-      {/* <Route path="/owner/*" element={<OwnerLayout />} /> */}
+      <Routes>
+        {/* ===== PUBLIC ROUTES ===== */}
 
-      {/* Admin Routes */}
-      {/* <Route path="/admin/*" element={<AdminLayout />} /> */}
+        <Route path="/" element={<Homepage />} />
 
-      {/* Customer Routes */}
-      {/* <Route path="/customer/*" element={<CustomerLayout />} /> */}
-    </Routes>
-  )
+        {/* ===== CUSTOMER ROUTES ===== */}
+
+        {/* ===== OWNER ROUTES ===== */}
+
+
+        {/* ===== ADMIN ROUTES ===== */}
+        
+
+        {/* ===== 404 NOT FOUND ===== */}
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
