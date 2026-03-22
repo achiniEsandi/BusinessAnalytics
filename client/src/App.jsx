@@ -17,19 +17,17 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <MainLayout>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/landing" element={<Landing />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/dashboard" element={<OwnerDashboard />} />
-            <Route path="/customer-dashboard" element={<CustomerDashboard />} />
-            <Route path="/store-editor" element={<StoreEditor />} />
-            <Route path="/create-product" element={<CreateProduct />} />
-            <Route path="/analytics" element={<Analytics />} />
-            <Route path="*" element={<Home />} />
-          </Routes>
-        </MainLayout>
+        <Routes>
+          <Route path="/" element={<MainLayout><Home /></MainLayout>} />
+          <Route path="/landing" element={<Landing />} />
+          <Route path="/admin" element={<MainLayout><AdminDashboard /></MainLayout>} />
+          <Route path="/dashboard" element={<MainLayout><OwnerDashboard /></MainLayout>} />
+          <Route path="/customer-dashboard" element={<MainLayout><CustomerDashboard /></MainLayout>} />
+          <Route path="/store-editor" element={<MainLayout><StoreEditor /></MainLayout>} />
+          <Route path="/create-product" element={<MainLayout><CreateProduct /></MainLayout>} />
+          <Route path="/analytics" element={<MainLayout><Analytics /></MainLayout>} />
+          <Route path="*" element={<MainLayout><Home /></MainLayout>} />
+        </Routes>
         <Toaster position="top-right" reverseOrder={false} />
         <DevTools />
       </Router>
