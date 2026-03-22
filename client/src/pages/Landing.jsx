@@ -1,14 +1,107 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const MaterialIcon = ({ name, size = 24, className = "" }) => (
-  <span 
-    className={`material-symbols-outlined ${className}`} 
-    style={{ fontSize: size, lineHeight: 1 }}
-  >
-    {name}
-  </span>
-);
+// SVG-based Icon component for maximum reliability
+const MaterialIcon = ({ name, size = 24, className = "" }) => {
+  const icons = {
+    grid_view: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" />
+      </svg>
+    ),
+    search: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+    ),
+    notifications: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" />
+      </svg>
+    ),
+    shopping_cart: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+      </svg>
+    ),
+    add_shopping_cart: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="9" cy="21" r="1" /><circle cx="20" cy="21" r="1" />
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" />
+        <line x1="12" y1="9" x2="12" y2="15" /><line x1="9" y1="12" x2="15" y2="12" />
+      </svg>
+    ),
+    favorite: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
+    ),
+    chevron_right: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    ),
+    chevron_left: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    ),
+    help_center: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" /><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /><line x1="12" y1="17" x2="12.01" y2="17" />
+      </svg>
+    ),
+    star: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ),
+    menu_book: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      </svg>
+    ),
+    devices: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+    restaurant: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1" /><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" /><line x1="6" y1="1" x2="6" y2="4" /><line x1="10" y1="1" x2="10" y2="4" /><line x1="14" y1="1" x2="14" y2="4" />
+      </svg>
+    ),
+    design_services: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 19l7-7 3 3-7 7-3-3z" /><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="M2 2l7.5 1.5" /><path d="M14 11l5 5" />
+      </svg>
+    ),
+    calendar_today: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
+    ),
+    public: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
+    share: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+      </svg>
+    ),
+    alternate_email: (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="4" /><path d="M16 12v1a3 3 0 0 0 6 0v-1a10 10 0 1 0-3.92 7.94" />
+      </svg>
+    )
+  };
+
+  return <span className={`inline-flex items-center justify-center ${className}`}>{icons[name] || name}</span>;
+};
 
 export default function Landing() {
   return (
@@ -58,17 +151,17 @@ export default function Landing() {
           <p className="text-lg text-slate-500 mb-10">
             Discover local student-run businesses and essentials on campus.
           </p>
-          <div className="relative group max-w-3xl mx-auto">
-            <div className="absolute inset-y-0 left-0 pl-6 flex items-center pointer-events-none">
-              <MaterialIcon name="search" className="text-slate-400 group-focus-within:text-[#1111d4]" size={28} />
+          <div className="relative group max-w-2xl mx-auto">
+            <div className="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+              <MaterialIcon name="search" className="text-slate-400 group-focus-within:text-[#1111d4]" size={24} />
             </div>
             <input 
-              className="block w-full pl-16 pr-36 py-7 bg-white border-none rounded-[32px] shadow-2xl shadow-[#1111d4]/10 focus:ring-2 focus:ring-[#1111d4] text-xl placeholder-slate-300 outline-none" 
+              className="block w-full pl-14 pr-32 py-5 bg-white border-none rounded-2xl shadow-lg shadow-[#1111d4]/5 focus:ring-1 focus:ring-[#1111d4] text-base placeholder-slate-300 outline-none" 
               placeholder="Search textbooks, tech, food, and more..." 
               type="text" 
             />
-            <div className="absolute inset-y-3 right-3">
-              <button className="h-full px-12 bg-[#1111d4] text-white font-black rounded-[24px] hover:bg-[#0d0db0] transition-all active:scale-95 shadow-xl shadow-[#1111d4]/30 border-none cursor-pointer text-lg">
+            <div className="absolute inset-y-2 right-2">
+              <button className="h-full px-8 bg-[#1111d4] text-white font-bold rounded-xl hover:bg-[#0d0db0] transition-all active:scale-95 border-none cursor-pointer">
                 Search
               </button>
             </div>
@@ -89,8 +182,8 @@ export default function Landing() {
               { name: 'Services', icon: 'design_services', img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBF8g043J-vg8umvuJziYJCWsii_-EYUQkY4L6PrtpICL-emNY6HneQspoqUkkNzqOdLoG3oYhrOdQT96jJNuMwbtCVq9SVRJo6b-R0xuPyDUQNZIGkL4KTPbgs_anHQRVM0t2u7nxjhBfvbB3DZHWO-9LV5BMRA0wVabY9Xrz7ruzj9CHrvnML8pNhs5eX4cK4HlMqD0WANQgUlxZhL3_rayBnmRpcIAG_XfLnjMaUQ_1WlKaFfyJQLIDWGORXCjBO10QGHwjPtw' }
             ].map((cat) => (
               <Link key={cat.name} className="group relative overflow-hidden rounded-2xl aspect-[4/3] bg-slate-200 no-underline shadow-sm" to="#">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10 transition-opacity group-hover:opacity-90"></div>
-                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src={cat.img} alt={cat.name}/>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src={cat.img} alt={cat.name}/>
                 <div className="absolute bottom-4 left-4 z-20">
                   <MaterialIcon name={cat.icon} className="text-white mb-2" size={24} />
                   <h3 className="text-white font-bold text-lg">{cat.name}</h3>
@@ -175,7 +268,7 @@ export default function Landing() {
               <div key={prod.name} className="group cursor-pointer">
                 <div className="relative rounded-3xl overflow-hidden aspect-square bg-slate-100 mb-4 shadow-sm group-hover:shadow-lg transition-all duration-500">
                   <img className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src={prod.img} alt={prod.name}/>
-                  <button className="absolute top-3 right-3 w-10 h-10 bg-white/95 backdrop-blur rounded-xl flex items-center justify-center text-slate-300 hover:text-red-500 transition-all shadow-md active:scale-90 border-none bg-transparent cursor-pointer">
+                  <button className="absolute top-3 right-3 w-10 h-10 bg-white/95 backdrop-blur rounded-xl flex items-center justify-center text-slate-300 hover:text-red-500 transition-all shadow-md active:scale-90 border-none cursor-pointer">
                     <MaterialIcon name="favorite" size={20} />
                   </button>
                 </div>
