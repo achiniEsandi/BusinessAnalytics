@@ -1,5 +1,7 @@
 // components/AdminHeader.jsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const MaterialIcon = ({ name, size = 20 }) => (
   <span
@@ -11,18 +13,19 @@ const MaterialIcon = ({ name, size = 20 }) => (
 );
 
 const AdminHeader = () => {
+  const { user, logout } = useContext(AuthContext);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-100 flex items-center justify-between px-4 sm:px-8 py-3 bg-[#0a0a0f] text-white border-b border-[#2a2a35] shadow-lg">
       {/* Left section - Logo and Dashboard */}
       <div className="flex items-center gap-6">
-        <a href="/admin" className="flex items-center gap-2 font-bold text-lg no-underline text-white">
+        <Link to="/admin" className="flex items-center gap-2 font-bold text-lg no-underline text-white">
           <span className="w-[32px] h-[32px] bg-[#0000ff] rounded-lg grid place-items-center text-white text-base font-bold shadow-[0_0_10px_rgba(0,0,255,0.5)]">
             A
           </span>
-          <span className="text-white">Admin Panel</span>
-        </a>
+          <span className="text-white text-lg">Admin Panel</span>
+        </Link>
         
         {/* Dashboard breadcrumb */}
         <div className="hidden md:flex items-center gap-2 text-sm text-gray-400">
@@ -45,35 +48,23 @@ const AdminHeader = () => {
 
       {/* Right section - Admin actions */}
       <div className="flex items-center gap-3">
-        {/* Quick Actions */}
-        <button className="hidden sm:flex items-center gap-2 bg-[#1a1a24] hover:bg-[#2a2a35] px-4 py-2 rounded-lg text-sm text-gray-300 hover:text-white transition-all">
-          <MaterialIcon name="add" size={18} />
-          <span>Quick Add</span>
-        </button>
-
         {/* Notifications */}
-        <button className="relative p-2 hover:bg-[#1a1a24] rounded-lg transition-colors">
+        <button className="relative p-2 hover:bg-[#1a1a24] rounded-lg transition-colors border-none bg-transparent cursor-pointer">
           <MaterialIcon name="notifications" size={20} className="text-gray-400" />
           <span className="absolute top-1 right-1 w-2 h-2 bg-[#ff4444] rounded-full"></span>
-        </button>
-
-        {/* Messages */}
-        <button className="relative p-2 hover:bg-[#1a1a24] rounded-lg transition-colors">
-          <MaterialIcon name="chat" size={20} className="text-gray-400" />
-          <span className="absolute top-1 right-1 w-2 h-2 bg-[#ffaa00] rounded-full"></span>
         </button>
 
         {/* Admin Profile */}
         <div className="relative">
           <button 
             onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-            className="flex items-center gap-3 ml-2 p-1 pr-3 hover:bg-[#1a1a24] rounded-lg transition-colors"
+            className="flex items-center gap-3 ml-2 p-1 pr-3 hover:bg-[#1a1a24] rounded-lg transition-colors border-none bg-transparent cursor-pointer"
           >
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0000ff] to-[#6600ff] flex items-center justify-center text-white font-bold text-sm">
-              A
+              {user?.name?.charAt(0) || 'A'}
             </div>
             <div className="hidden md:block text-left">
-              <div className="text-sm font-medium text-white">Admin User</div>
+              <div className="text-sm font-medium text-white">{user?.name || 'Admin User'}</div>
               <div className="text-xs text-gray-500">Super Admin</div>
             </div>
             <MaterialIcon name="expand_more" size={18} className="text-gray-500" />
@@ -88,7 +79,7 @@ const AdminHeader = () => {
               />
               <div className="absolute right-0 mt-2 w-64 bg-[#1a1a24] border border-[#2a2a35] rounded-lg shadow-xl z-50">
                 <div className="p-3 border-b border-[#2a2a35]">
-                  <div className="text-sm font-medium text-white">Admin User</div>
+                  <div className="text-sm font-medium text-white">{user?.name || 'Admin User'}</div>
                   <div className="text-xs text-gray-500">admin@hustlehub.com</div>
                 </div>
                 
@@ -99,10 +90,10 @@ const AdminHeader = () => {
                     { icon: 'security', label: 'Security', badge: '2FA' },
                     { icon: 'analytics', label: 'Analytics', badge: 'New' },
                   ].map((item) => (
-                    <a
+                    <Link
                       key={item.label}
-                      href="#"
-                      className="flex items-center justify-between px-3 py-2 text-sm text-gray-300 hover:bg-[#2a2a35] hover:text-white rounded-lg transition-colors"
+                      to="#"
+                      className="flex items-center justify-between px-3 py-2 text-sm text-gray-300 hover:bg-[#2a2a35] hover:text-white rounded-lg transition-colors no-underline"
                     >
                       <div className="flex items-center gap-3">
                         <MaterialIcon name={item.icon} size={18} />
@@ -113,18 +104,18 @@ const AdminHeader = () => {
                           {item.badge}
                         </span>
                       )}
-                    </a>
+                    </Link>
                   ))}
                   
                   <div className="border-t border-[#2a2a35] my-2"></div>
                   
-                  <a
-                    href="#"
-                    className="flex items-center gap-3 px-3 py-2 text-sm text-[#ff6b6b] hover:bg-[#2a2a35] rounded-lg transition-colors"
+                  <button
+                    onClick={logout}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-sm text-[#ff6b6b] hover:bg-[#2a2a35] rounded-lg transition-colors border-none bg-transparent cursor-pointer text-left font-medium"
                   >
                     <MaterialIcon name="logout" size={18} />
                     <span>Logout</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </>
@@ -135,4 +126,4 @@ const AdminHeader = () => {
   );
 };
 
-export default AdminHeader;
+export default AdminHeader;
